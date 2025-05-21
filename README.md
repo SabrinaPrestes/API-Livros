@@ -12,6 +12,7 @@ API RESTful desenvolvida em Java com Spring Boot para o gerenciamento de um cat√
 - Banco de dados H2 (em mem√≥ria)
 - SpringDoc OpenAPI (Swagger)
 - JUnit 5 / Spring Boot Test
+- Postman
 
 ---
 
