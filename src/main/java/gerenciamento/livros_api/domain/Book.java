@@ -9,15 +9,20 @@ import lombok.*;
         uniqueConstraints = @UniqueConstraint(name = "UK_BOOK_ISBN", columnNames = "isbn"))
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Book {
 
     @Id @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String title;
+
+    @Column(nullable = false)
     private String author;
+
+    @Column(name = "publication_year", nullable = false)
     private Integer publicationYear;
     private String isbn;
 
@@ -27,4 +32,8 @@ public class Book {
         this.publicationYear = request.publicationYear();
         this.isbn = request.isbn();
     }
+
+    public Book(){}
+
+
 }
