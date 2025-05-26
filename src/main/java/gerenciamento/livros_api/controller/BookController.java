@@ -1,11 +1,12 @@
 package gerenciamento.livros_api.controller;
 
-import gerenciamento.livros_api.domain.Book;
 import gerenciamento.livros_api.dto.book.CreateBookRequest;
 import gerenciamento.livros_api.dto.book.CreateBookResponse;
-import gerenciamento.livros_api.repository.BookRepository;
+import gerenciamento.livros_api.dto.book.UpdateBookRequest;
 import gerenciamento.livros_api.service.BookService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,8 +25,13 @@ public class BookController {
     }
 
     @GetMapping
-    public List<CreateBookResponse> list() {
+    public List<CreateBookResponse> listBook() {
         return bookService.listAllBooks();
+
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<CreateBookResponse> updateBook(@PathVariable Long id, @RequestBody UpdateBookRequest request) {
+        return ResponseEntity.ok(bookService.updateBook(id, request));
     }
 
 }
