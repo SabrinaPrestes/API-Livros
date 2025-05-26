@@ -9,6 +9,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class BookService {
     @Transactional
     public CreateBookResponse updateBook(Long id, UpdateBookRequest request) {
         Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Livro não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Book not found"));
 
         book.setTitle(request.title());
         book.setAuthor(request.author());
@@ -44,5 +45,12 @@ public class BookService {
         return CreateBookResponse.fromEntity(updatedBook);
     }
 
+    @Transactional
+    public void deleteBook(@PathVariable Long id) {
+        if (!bookRepository.existsById(id))
+            throw new EntityNotFoundException("Book not found");
+
+        bookRepository.deleteById(id);
+    }
 
 }
